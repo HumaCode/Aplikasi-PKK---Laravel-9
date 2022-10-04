@@ -27,10 +27,26 @@ Menu Utama
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
+                            <h3>150</h3>
+
+                            <p>Admin Kelurahan/Desa</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <a href="{{ url('admin/daftar-admin-kelurahan') }}" class="small-box-footer">Lihat <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
                             <h3>{{ $jmlAdmin }}</h3>
 
 
-                            <p>Akun Admin per RT</p>
+                            <p>Admin RT/Dusun</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-users"></i>
@@ -46,7 +62,7 @@ Menu Utama
                         <div class="inner">
                             <h3>{{ $jmlDasawisma }}</h3>
 
-                            <p>Akun Dasawisma</p>
+                            <p>Admin Dasawisma</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-sitemap"></i>
@@ -56,20 +72,7 @@ Menu Utama
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>150</h3>
 
-                            <p>Kader</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-file"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">Lihat <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

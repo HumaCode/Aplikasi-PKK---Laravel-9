@@ -433,4 +433,19 @@ class AdminRtController extends Controller
 
         return redirect('admin2/daftar-dasawisma')->with('success', 'Berhasil dihapus.');
     }
+
+
+    // untuk admin ke 2 Daftar Warga tp pkk 
+    public function wargaTpPkk()
+    {
+        $user = Auth::user();
+        $username = $user->username;
+        $userRt = $this->Rt->dataByUsername($username);
+        $dusun = $userRt->dusun;
+
+        return view('admin_rt.warga.data', [
+            'dasawisma' => Kader::where('dusun', $dusun)->orderBy('id', 'desc')->get(),
+            'sesiUser' => $user,
+        ]);
+    }
 }

@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     // user level 1
     Route::group(['middleware' => ['cekUserLogin:1']], function () {
 
-        // dasawisma
+        // admin dasawisma
         Route::get('admin/daftar-dasawisma', [AdminController::class, 'index']);
         Route::get('admin/tambah-dasawisma', [AdminController::class, 'tambah']);
         Route::post('admin/proses-tambah', [AdminController::class, 'prosesTambah']);
@@ -33,13 +33,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/admin/hapus/{username}', [AdminController::class, 'hapus']);
 
 
-        // admin per RT
+        // admin Rt/Dusun
         Route::get('admin/daftar-admin', [AdminRtController::class, 'index']);
         Route::get('admin/tambah-admin', [AdminRtController::class, 'tambah']);
         Route::post('admin/proses-tambah-admin', [AdminRtController::class, 'prosesTambah']);
         Route::get('admin/edit-admin/{username}', [AdminRtController::class, 'edit']);
         Route::put('admin/proses-edit-admin/{username}', [AdminRtController::class, 'prosesEdit']);
         Route::delete('/admin/hapus-admin/{username}', [AdminRtController::class, 'hapus']);
+
+
+        // admin Kelurahan/desa
+        Route::get('admin/daftar-admin-kelurahan', [AdminController::class, 'dataAdminKelurahan']);
+        Route::get('admin/tambah-admin-kelurahan', [AdminController::class, 'tambahAdminKelurahan']);
+        Route::post('admin/proses-tambah-admin-kelurahan', [AdminController::class, 'prosesTambahAdminKelurahan']);
+        Route::get('admin/edit-admin-kelurahan/{username}', [AdminController::class, 'editAdminKelurahan']);
+        Route::put('admin/proses-edit-admin-kelurahan/{username}', [AdminController::class, 'prosesEditAdminKelurahan']);
+        Route::delete('admin/hapus-admin-kelurahan/{username}', [AdminController::class, 'hapusAdminKelurahan']);
     });
 
     // user level 2
@@ -61,6 +70,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('admin2/edit-dasawisma/{username}', [AdminRtController::class, 'editAdminDasawisma']);
         Route::put('admin2/proses-edit-dasawisma/{username}', [AdminRtController::class, 'prosesEditAdminDasawisma']);
         Route::delete('admin2/hapus-dasawisma/{username}', [AdminRtController::class, 'hapusAdminDasawisma']);
+
+
+        // daftar warga tp pkk
+        Route::get('admin2/daftar-warga-tp-pkk', [AdminRtController::class, 'wargaTpPkk']);
     });
 
     Route::group(['middleware' => ['cekUserLogin:3']], function () {
