@@ -26,7 +26,9 @@ class LayoutController extends Controller
             return view('layout.home', [
                 'sesiUser' => $user,
                 'rt'        => $adminRt,
-                'jmlAdmin' => DB::table('rts')->count(),
+                'jmlAdminRt' => DB::table('rts')->count(),
+                'jmlAdminKec' => DB::table('kecamatans')->count(),
+                'jmlAdminKel' => DB::table('kelurahans')->count(),
                 'jmlDasawisma' => DB::table('kaders')->count(),
             ]);
         } else  if ($user->level == 3) {

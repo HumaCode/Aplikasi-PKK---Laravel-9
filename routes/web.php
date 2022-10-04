@@ -49,6 +49,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('admin/edit-admin-kelurahan/{username}', [AdminController::class, 'editAdminKelurahan']);
         Route::put('admin/proses-edit-admin-kelurahan/{username}', [AdminController::class, 'prosesEditAdminKelurahan']);
         Route::delete('admin/hapus-admin-kelurahan/{username}', [AdminController::class, 'hapusAdminKelurahan']);
+
+
+        // admin kecamatan
+        Route::get('admin/daftar-admin-kecamatan', [AdminController::class, 'dataAdminKecamatan']);
+        Route::get('admin/tambah-admin-kecamatan', [AdminController::class, 'tambahAdminKecamatan']);
+        Route::post('admin/proses-tambah-admin-kecamatan', [AdminController::class, 'prosesTambahAdminKecamatan']);
+        Route::get('admin/edit-admin-kecamatan/{username}', [AdminController::class, 'editAdminKecamatan']);
+        Route::put('admin/proses-edit-admin-kecamatan/{username}', [AdminController::class, 'prosesEditAdminKecamatan']);
+        Route::delete('admin/hapus-admin-kecamatan/{username}', [AdminController::class, 'hapusAdminKecamatan']);
     });
 
     // user level 2

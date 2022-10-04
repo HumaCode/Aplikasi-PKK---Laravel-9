@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Kader;
+use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class AdminController extends Controller
 {
     public function __construct()
     {
+        $this->Kecamatan = new Kecamatan();
         $this->Kelurahan = new Kelurahan();
         $this->Kader = new Kader();
         $this->User = new User();
@@ -269,5 +271,117 @@ class AdminController extends Controller
         $this->User->DeleteData($username);
 
         return redirect('admin/daftar-admin-kelurahan')->with('success', 'Berhasil dihapus.');
+    }
+
+
+    // admin kecamatan
+    public function dataAdminKecamatan()
+    {
+        return view('super_admin.kecamatan.data', [
+            'kecamatan' => Kecamatan::orderBy('id', 'desc')->get(),
+            'sesiUser' => Auth::user(),
+        ]);
+    }
+
+    public function tambahAdminKecamatan()
+    {
+        return view('super_admin.kecamatan.tambah', [
+            'sesiUser' => Auth::user(),
+        ]);
+    }
+
+    public function prosesTambahAdminKecamatan(Request $request)
+    {
+        $validatedData = $request->validate(
+            [
+                'nama'      => 'required',
+                'kecamatan' => 'required',
+                'kota'      => 'required',
+                'provinsi'  => 'required',
+                'password'  => 'required|min:6'
+            ],
+            [
+                'nama.required'         => 'Field nama tidak boleh kosong..!!',
+                'kecamatan.required'    => 'Field kecamatan tidak boleh kosong..!!',
+                'password.required'     => 'Field password tidak boleh kosong..!!',
+                'password.min'          => 'Password minimal 6 karakter..!!',
+            ]
+        );
+
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $username = Helper::UserNameGenerator(new Kecamatan, 'username', 5, 'KEC');
+
+        Kecamatan::create([
+            'username'      => $username,
+            'nama'          => strtoupper($validatedData['nama']),
+            'kecamatan'     => strtoupper($validatedData['kecamatan']),
+            'kota'          => $validatedData['kota'],
+            'provinsi'      => $validatedData['provinsi'],
+        ]);
+
+        User::create([
+            'username' => $username,
+            'nama' => strtoupper($validatedData['nama']),
+            'password' => $validatedData['password'],
+            'level' => 5,
+        ]);
+
+        return redirect('admin/daftar-admin-kecamatan')->with('success', 'Berhasil menambahkan admin kecamatan.');
+    }
+
+    public function editAdminKecamatan($username)
+    {
+        return view('super_admin.kecamatan.edit', [
+            'kecamatan' => $this->Kecamatan->dataByUsername($username),
+            'user' => $this->User->dataByUsername($username),
+            'sesiUser' => Auth::user(),
+        ]);
+    }
+
+    public function prosesEditAdminKecamatan(Request $request, $username)
+    {
+        $validatedData = $request->validate(
+            [
+                'nama'      => 'required',
+                'kecamatan' => 'required',
+                'kota'      => 'required',
+                'provinsi'  => 'required',
+            ],
+            [
+                'nama.required'         => 'Field nama tidak boleh kosong..!!',
+                'kecamatan.required'    => 'Field kecamatan tidak boleh kosong..!!',
+                'kota.required'         => 'Field kota tidak boleh kosong..!!',
+                'provinsi.required'     => 'Field provinsi tidak boleh kosong..!!',
+            ]
+        );
+
+        if ($request->password == '') {
+            $pass = $request->passLama;
+        } else {
+            $pass = Hash::make($request['password']);
+        }
+
+        Kecamatan::where('username', $username)->update([
+            'nama'      => strtoupper($validatedData['nama']),
+            'kecamatan' => strtoupper($validatedData['kecamatan']),
+            'kota'      => strtoupper($validatedData['kota']),
+            'provinsi'  => strtoupper($validatedData['provinsi']),
+        ]);
+
+        User::where('username', $username)->update([
+            'nama'      => strtoupper($validatedData['nama']),
+            'password'  => $pass
+        ]);
+
+        return redirect('admin/daftar-admin-kecamatan')->with('success', 'Berhasil diubah.');
+    }
+
+    public function hapusAdminKecamatan($username)
+    {
+        $this->Kecamatan->DeleteData($username);
+        $this->User->DeleteData($username);
+
+        return redirect('admin/daftar-admin-kecamatan')->with('success', 'Berhasil dihapus.');
     }
 }

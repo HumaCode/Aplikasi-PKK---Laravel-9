@@ -23,11 +23,27 @@ Menu Utama
         <div class="card-body">
             <div class="row">
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{ $jmlAdminKec }}</h3>
+
+                            <p>Admin Kecamatan</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <a href="{{ url('admin/daftar-admin-kecamatan') }}" class="small-box-footer">Lihat <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ $jmlAdminKel }}</h3>
 
                             <p>Admin Kelurahan/Desa</p>
                         </div>
@@ -39,11 +55,11 @@ Menu Utama
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $jmlAdmin }}</h3>
+                            <h3>{{ $jmlAdminRt }}</h3>
 
 
                             <p>Admin RT/Dusun</p>
@@ -56,7 +72,7 @@ Menu Utama
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
@@ -71,7 +87,6 @@ Menu Utama
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-
 
             </div>
         </div>
