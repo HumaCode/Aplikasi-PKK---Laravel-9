@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\Rt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +14,8 @@ class LayoutController extends Controller
     public function __construct()
     {
         $this->Rt = new Rt();
+        $this->Kecamatan = new Kecamatan();
+        $this->Kelurahan = new Kelurahan();
     }
 
     public function index()
@@ -20,6 +24,7 @@ class LayoutController extends Controller
         $username = $user->username;
         $adminRt = $this->Rt->dataByUsername($username);
 
+        // super admin
         if ($user->level == 1) {
 
 
@@ -31,6 +36,21 @@ class LayoutController extends Controller
                 'jmlAdminKel' => DB::table('kelurahans')->count(),
                 'jmlDasawisma' => DB::table('kaders')->count(),
             ]);
+
+            // admin dusun 
+        } else if ($user->level == 2) {
+
+            $dusun = $adminRt->dusun;
+
+            return view('layout.home', [
+                'sesiUser' => $user,
+                'rt'        => $adminRt,
+                'jmlAdmin' => DB::table('rts')->count(),
+                'jmlAdmin2' => DB::table('rts')->where('dusun', $dusun)->count(),
+                'jmlDasawisma' => DB::table('kaders')->count(),
+            ]);
+
+            // admin dasawisma
         } else  if ($user->level == 3) {
 
             return view('layout.home', [
@@ -38,16 +58,30 @@ class LayoutController extends Controller
                 'jmlAdmin' => DB::table('rts')->count(),
                 'jmlDasawisma' => DB::table('kaders')->count(),
             ]);
+
+            // admin kelurahan
+        } else if ($user->level == 4) {
+
+            $kelurahan  = $this->Kelurahan->dataByUsername($username);
+            return view('layout.home', [
+                'sesiUser'      => $user,
+                'jmlAdmin'      => DB::table('rts')->count(),
+                'jmlDasawisma'  => DB::table('kaders')->count(),
+                'kel'           => $kelurahan,
+            ]);
         }
 
-        $dusun = $adminRt->dusun;
+        //  akunkecamatan
+        else if ($user->level == 5) {
 
-        return view('layout.home', [
-            'sesiUser' => $user,
-            'rt'        => $adminRt,
-            'jmlAdmin' => DB::table('rts')->count(),
-            'jmlAdmin2' => DB::table('rts')->where('dusun', $dusun)->count(),
-            'jmlDasawisma' => DB::table('kaders')->count(),
-        ]);
+            $kecamatan  = $this->Kecamatan->dataByUsername($username);
+            // $kec        = $kecamatan->kecamatan;
+
+            return view('layout.home', [
+                'sesiUser'      => $user,
+                'kec'           => $kecamatan,
+                'jmlAdminKel'   => DB::table('kelurahans')->count(),
+            ]);
+        }
     }
 }

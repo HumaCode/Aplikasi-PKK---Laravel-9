@@ -19,7 +19,7 @@ Edit Akun <span class="text-danger">{{ $adminRt->nama }}</span>
 
                 <input type="hidden" name="passLama" value="{{ $user->password }}">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
@@ -32,7 +32,7 @@ Edit Akun <span class="text-danger">{{ $adminRt->nama }}</span>
                         </div>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="dusun">RT/Dusun</label>
                             <input type="number" min="0" name="dusun"
@@ -45,7 +45,20 @@ Edit Akun <span class="text-danger">{{ $adminRt->nama }}</span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="rw">RW</label>
+                            <input type="number" min="0" name="rw"
+                                class="form-control @error('rw') is-invalid @enderror" id="rw" placeholder="Masukan rw"
+                                value="{{ old('rw', $adminRt->rw) }}">
+                            @error('rw')
+                            <div class="invalid-feedback">
+                                <div class="ml-1">{{ $message }}</div>
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="kelurahan">Kelurahan</label>
                             <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
@@ -79,12 +92,7 @@ Edit Akun <span class="text-danger">{{ $adminRt->nama }}</span>
                         <div class="form-group">
                             <label for="kota">Kota</label>
                             <input type="text" class="form-control @error('kota') is-invalid @enderror" name="kota"
-                                id="kota" placeholder="Masukan Kota" value="{{ old('kota', $adminRt->kota) }}">
-                            @error('kota')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                                id="kota" placeholder="Masukan Kota" value="{{ old('kota', $adminRt->kota) }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -92,12 +100,7 @@ Edit Akun <span class="text-danger">{{ $adminRt->nama }}</span>
                             <label for="provinsi">Provinsi</label>
                             <input type="text" class="form-control @error('provinsi') is-invalid @enderror"
                                 name="provinsi" id="provinsi" placeholder="Masukan Provinsi"
-                                value="{{ old('provinsi', $adminRt->provinsi) }}">
-                            @error('provinsi')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                                value="{{ old('provinsi', $adminRt->provinsi) }}" readonly>
                         </div>
                     </div>
                 </div>

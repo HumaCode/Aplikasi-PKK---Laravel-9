@@ -32,7 +32,11 @@
                         @elseif($sesiUser->level == 2)
                         ADMIN RT
                         @elseif($sesiUser->level == 3)
-                        ANGGOTA DASAWISMA
+                        ADMIN DASAWISMA
+                        @elseif($sesiUser->level == 4)
+                        ADMIN KELURAHAN {{ $kel->kelurahan }}
+                        @elseif($sesiUser->level == 5)
+                        ADMIN KECAMATAN {{ $kec->kecamatan }}
                         @endif
 
                         : {{ $sesiUser->nama

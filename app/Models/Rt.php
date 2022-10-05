@@ -14,6 +14,7 @@ class Rt extends Model
         'username',
         'nama',
         'dusun',
+        'rw',
         'kelurahan',
         'kota',
         'provinsi',

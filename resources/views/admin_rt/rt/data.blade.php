@@ -2,7 +2,7 @@
 
 
 @section('judul')
-Daftar Admin per RT
+Daftar Admin RT
 @endsection
 
 
@@ -32,7 +32,8 @@ Daftar Admin per RT
                         <th>No</th>
                         <th>Username</th>
                         <th>Nama</th>
-                        <th>RT/Dusun</th>
+                        <th>RT</th>
+                        <th>RW</th>
                         <th>Kelurahan</th>
                         <th>Kecamatan</th>
                         <th>Provinsi</th>
@@ -47,6 +48,7 @@ Daftar Admin per RT
                         <td>{{ $data->username }}</td>
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->dusun }}</td>
+                        <td>{{ $data->rw }}</td>
                         <td>{{ $data->kelurahan }}</td>
                         <td>{{ $data->kecamatan }}</td>
                         <td>{{ $data->provinsi }}</td>

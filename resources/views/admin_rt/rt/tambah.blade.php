@@ -17,72 +17,53 @@ Tambah Akun RT
                 @csrf
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="dusun">RT/Dusun</label>
-                            <input type="number" min="0" name="dusun"
-                                class="form-control @error('dusun') is-invalid @enderror" id="dusun"
+                            <label for="dusun">RT</label>
+                            <input type="number" min="0" name="dusun" class="form-control" id="dusun"
                                 placeholder="Masukan Dusun" value="{{ old('dusun', $dataRt->dusun) }}" readonly>
-                            @error('dusun')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="rw">RW</label>
+                            <input type="number" min="0" name="rw" class="form-control" id="rw" placeholder="Masukan Rw"
+                                value="{{ old('rw', $dataRt->rw) }}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="kelurahan">Kelurahan</label>
-                            <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
-                                name="kelurahan" id="kelurahan" placeholder="Masukan Kelurahan"
-                                value="{{ old('kelurahan', $dataRt->kelurahan) }}" readonly>
-                            @error('kelurahan')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control" name="kelurahan" id="kelurahan"
+                                placeholder="Masukan Kelurahan" value="{{ old('kelurahan', $dataRt->kelurahan) }}"
+                                readonly>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
-                            <input type="text" class="form-control @error('kecamatan') is-invalid @enderror"
-                                name="kecamatan" id="kecamatan" placeholder="Masukan Kecamatan"
-                                value="{{ old('kecamatan', $dataRt->kecamatan) }}" readonly>
-                            @error('kecamatan')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control" name="kecamatan" id="kecamatan"
+                                placeholder="Masukan Kecamatan" value="{{ old('kecamatan', $dataRt->kecamatan) }}"
+                                readonly>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="kota">Kota</label>
-                            <input type="text" class="form-control @error('kota') is-invalid @enderror" name="kota"
-                                id="kota" placeholder="Masukan Kota" value="{{ old('kota', $dataRt->kota) }}" readonly>
-                            @error('kota')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control " name="kota" id="kota" placeholder="Masukan Kota"
+                                value="{{ old('kota', $dataRt->kota) }}" readonly>
+
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="provinsi">Provinsi</label>
-                            <input type="text" class="form-control @error('provinsi') is-invalid @enderror"
-                                name="provinsi" id="provinsi" placeholder="Masukan Provinsi"
-                                value="{{ old('provinsi', $dataRt->provinsi) }}" readonly>
-                            @error('provinsi')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control " name="provinsi" id="provinsi"
+                                placeholder="Masukan Provinsi" value="{{ old('provinsi', $dataRt->provinsi) }}"
+                                readonly>
                         </div>
                     </div>
                 </div>

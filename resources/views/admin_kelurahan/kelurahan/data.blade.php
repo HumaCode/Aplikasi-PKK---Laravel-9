@@ -11,7 +11,7 @@ Daftar Admin RT/Dusun
 
     <div class="card card-cyan card-outline">
         <div class="card-header">
-            <a href="{{ url('admin/tambah-admin') }}" class="btn bg-cyan btn-sm"><i class="fas fa-plus"></i>&nbsp;
+            <a href="{{ url('admin2/tambah-admin') }}" class="btn bg-cyan btn-sm"><i class="fas fa-plus"></i>&nbsp;
                 Tambah</a>
         </div>
         <div class="card-body">
@@ -32,8 +32,7 @@ Daftar Admin RT/Dusun
                         <th>No</th>
                         <th>Username</th>
                         <th>Nama</th>
-                        <th>RT</th>
-                        <th>RW</th>
+                        <th>RT/Dusun</th>
                         <th>Kelurahan</th>
                         <th>Kecamatan</th>
                         <th>Provinsi</th>
@@ -48,15 +47,14 @@ Daftar Admin RT/Dusun
                         <td>{{ $data->username }}</td>
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->dusun }}</td>
-                        <td>{{ $data->rw }}</td>
                         <td>{{ $data->kelurahan }}</td>
                         <td>{{ $data->kecamatan }}</td>
                         <td>{{ $data->provinsi }}</td>
 
                         <td>
-                            <a href="/admin/edit-admin/{{ $data->username }}" class="badge bg-warning"><span
-                                    data-feather="edit"><i class="fas fa-pencil-alt"></i> &nbsp; Edit</span></a>
-                            <form action="/admin/hapus-admin/{{ $data->username }}" method="post" class="d-inline">
+                            <a href="/admin2/edit-admin/{{ $data->username }}" class="badge bg-warning"><span
+                                    data-feather="edit"><i class="fas fa-pencil-alt"></i>&nbsp; Edit</span></a>
+                            <form action="/admin2/hapus-admin/{{ $data->username }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
                                 <button class="badge bg-danger border-0"

@@ -129,6 +129,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
         });
 
+         // interval alert
+        window.setTimeout(function() {
+            $('.alert').fadeTo(500, 0).slideUp(500, function() {
+                $(this).remove();
+            });
+        }, 3000);
+
     </script>
 </body>
 

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminKecamatanController;
+use App\Http\Controllers\AdminKelurahanController;
 use App\Http\Controllers\AdminRtController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\LoginController;
@@ -86,5 +88,24 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['cekUserLogin:3']], function () {
+    });
+
+
+    Route::group(['middleware' => ['cekUserLogin:4']], function () {
+
+        // admin rt
+        Route::get('admin-kelurahan/daftar-admin-rt', [AdminKelurahanController::class, 'index']);
+    });
+
+    // KECAMATAN
+    Route::group(['middleware' => ['cekUserLogin:5']], function () {
+
+        // admin rt/dusun
+        Route::get('admin-kecamatan/daftar-admin-kelurahan', [AdminKecamatanController::class, 'index']);
+        Route::get('admin-kecamatan/tambah-admin-kelurahan', [AdminKecamatanController::class, 'tambahAdminKelurahan']);
+        Route::post('admin-kecamatan/proses-tambah-admin-kelurahan', [AdminKecamatanController::class, 'prosesTambahAdminKelurahan']);
+        Route::get('admin-kecamatan/edit-admin-kelurahan/{username}', [AdminKecamatanController::class, 'editAdminKelurahan']);
+        Route::put('admin-kecamatan/proses-edit-admin-kelurahan/{username}', [AdminKecamatanController::class, 'prosesEditAdminKelurahan']);
+        Route::delete('admin-kecamatan/hapus-admin-kecamatan/{username}', [AdminKecamatanController::class, 'hapusAdminKelurahan']);
     });
 });

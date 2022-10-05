@@ -21,6 +21,7 @@ class AdminController extends Controller
         $this->User = new User();
     }
 
+    // admin dasawisma
     public function index()
     {
         return view('super_admin.dasawisma.data', [
@@ -147,7 +148,6 @@ class AdminController extends Controller
         return redirect('admin/daftar-dasawisma')->with('success', 'Berhasil diubah.');
     }
 
-
     public function hapus($username)
     {
         $this->Kader->DeleteData($username);
@@ -156,7 +156,7 @@ class AdminController extends Controller
         return redirect('/admin/daftar-dasawisma')->with('success', 'Berhasil dihapus.');
     }
 
-
+    // admin kelurahan
     public function dataAdminKelurahan()
     {
         return view('super_admin.kelurahan.data', [

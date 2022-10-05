@@ -17,7 +17,7 @@ Tambah Akun RT
                 @csrf
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
@@ -30,12 +30,12 @@ Tambah Akun RT
                         </div>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label for="dusun">RT/Dusun</label>
+                            <label for="dusun">RT</label>
                             <input type="number" min="0" name="dusun"
                                 class="form-control @error('dusun') is-invalid @enderror" id="dusun"
-                                placeholder="Masukan Dusun" value="{{ old('dusun') }}">
+                                placeholder="Masukan Rt" value="{{ old('dusun') }}">
                             @error('dusun')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>
@@ -43,7 +43,20 @@ Tambah Akun RT
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="rw">RW</label>
+                            <input type="number" min="0" name="rw"
+                                class="form-control @error('rw') is-invalid @enderror" id="rw" placeholder="Masukan rw"
+                                value="{{ old('rw') }}">
+                            @error('rw')
+                            <div class="invalid-feedback">
+                                <div class="ml-1">{{ $message }}</div>
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="kelurahan">Kelurahan</label>
                             <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
@@ -76,26 +89,15 @@ Tambah Akun RT
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="kota">Kota</label>
-                            <input type="text" class="form-control @error('kota') is-invalid @enderror" name="kota"
-                                id="kota" placeholder="Masukan Kota" value="{{ old('kota') }}">
-                            @error('kota')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control" name="kota" id="kota" placeholder="Masukan Kota"
+                                value="PEKALONGAN" readonly>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="provinsi">Provinsi</label>
-                            <input type="text" class="form-control @error('provinsi') is-invalid @enderror"
-                                name="provinsi" id="provinsi" placeholder="Masukan Provinsi"
-                                value="{{ old('provinsi') }}">
-                            @error('provinsi')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control " name="provinsi" id="provinsi"
+                                placeholder="Masukan Provinsi" value="JAWA TENGAH" readonly>
                         </div>
                     </div>
                 </div>

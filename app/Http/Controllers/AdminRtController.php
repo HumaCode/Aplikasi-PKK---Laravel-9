@@ -19,7 +19,7 @@ class AdminRtController extends Controller
         $this->Dasawisma = new Kader();
     }
 
-
+    // akun rt
     public function index()
     {
         return view('super_admin.rt.data', [
@@ -41,6 +41,7 @@ class AdminRtController extends Controller
             [
                 'nama' => 'required',
                 'dusun' => 'required',
+                'rw' => 'required',
                 'kelurahan' => 'required',
                 'kecamatan' => 'required',
                 'kota' => 'required',
@@ -50,10 +51,9 @@ class AdminRtController extends Controller
             [
                 'nama.required' => 'Field nama tidak boleh kosong..!!',
                 'dusun.required' => 'Field dusun tidak boleh kosong..!!',
+                'rw.required' => 'Field rw tidak boleh kosong..!!',
                 'kelurahan.required' => 'Field kelurahan tidak boleh kosong..!!',
                 'kecamatan.required' => 'Field kecamatan tidak boleh kosong..!!',
-                'kota.required' => 'Field kota tidak boleh kosong..!!',
-                'provinsi.required' => 'Field provinsi tidak boleh kosong..!!',
                 'password.required' => 'Field password tidak boleh kosong..!!',
                 'password.min' => 'Password minimal 6 karakter..!!',
             ]
@@ -61,12 +61,13 @@ class AdminRtController extends Controller
 
 
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $username = Helper::UserNameGenerator(new Rt, 'username', 5, 'ADM');
+        $username = Helper::UserNameGenerator(new Rt, 'username', 5, 'DSN');
 
         Rt::create([
             'username' => $username,
             'nama' => strtoupper($validatedData['nama']),
             'dusun' => $validatedData['dusun'],
+            'rw' => $validatedData['rw'],
             'kelurahan' => strtoupper($validatedData['kelurahan']),
             'kecamatan' => strtoupper($validatedData['kecamatan']),
             'kota' => strtoupper($validatedData['kota']),
@@ -94,14 +95,11 @@ class AdminRtController extends Controller
 
     public function prosesEdit(Request $request, $username)
     {
-        // $kader = $this->Kader->dataByUsername($username);
-        // $user = $this->User->dataByUsername($username);
-
-
         $validatedData = $request->validate(
             [
                 'nama' => 'required',
                 'dusun' => 'required',
+                'rw' => 'required',
                 'kelurahan' => 'required',
                 'kecamatan' => 'required',
                 'kota' => 'required',
@@ -110,6 +108,7 @@ class AdminRtController extends Controller
             [
                 'nama.required' => 'Field nama tidak boleh kosong..!!',
                 'dusun.required' => 'Field dusun tidak boleh kosong..!!',
+                'rw.required' => 'Field dusun tidak boleh kosong..!!',
                 'kelurahan.required' => 'Field kelurahan tidak boleh kosong..!!',
                 'kecamatan.required' => 'Field kecamatan tidak boleh kosong..!!',
                 'kota.required' => 'Field kota tidak boleh kosong..!!',
@@ -124,17 +123,18 @@ class AdminRtController extends Controller
         }
 
         Rt::where('username', $username)->update([
-            'nama' => strtoupper($validatedData['nama']),
-            'dusun' => $validatedData['dusun'],
+            'nama'      => strtoupper($validatedData['nama']),
+            'dusun'     => $validatedData['dusun'],
+            'rw'        => $validatedData['rw'],
             'kelurahan' => strtoupper($validatedData['kelurahan']),
             'kecamatan' => strtoupper($validatedData['kecamatan']),
-            'kota' => strtoupper($validatedData['kota']),
-            'provinsi' => strtoupper($validatedData['provinsi']),
+            'kota'      => strtoupper($validatedData['kota']),
+            'provinsi'  => strtoupper($validatedData['provinsi']),
         ]);
 
         User::where('username', $username)->update([
-            'nama' => strtoupper($validatedData['nama']),
-            'password' => $pass
+            'nama'      => strtoupper($validatedData['nama']),
+            'password'  => $pass
         ]);
 
         return redirect('admin/daftar-admin')->with('success', 'Berhasil mengedit admin.');
@@ -185,45 +185,48 @@ class AdminRtController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'nama' => 'required',
-                'dusun' => 'required',
+                'nama'      => 'required',
+                'dusun'     => 'required',
+                'rw'        => 'required',
                 'kelurahan' => 'required',
                 'kecamatan' => 'required',
-                'kota' => 'required',
-                'provinsi' => 'required',
-                'password' => 'required|min:6'
+                'kota'      => 'required',
+                'provinsi'  => 'required',
+                'password'  => 'required|min:6'
             ],
             [
-                'nama.required' => 'Field nama tidak boleh kosong..!!',
-                'dusun.required' => 'Field dusun tidak boleh kosong..!!',
-                'kelurahan.required' => 'Field kelurahan tidak boleh kosong..!!',
-                'kecamatan.required' => 'Field kecamatan tidak boleh kosong..!!',
-                'kota.required' => 'Field kota tidak boleh kosong..!!',
-                'provinsi.required' => 'Field provinsi tidak boleh kosong..!!',
-                'password.required' => 'Field password tidak boleh kosong..!!',
-                'password.min' => 'Password minimal 6 karakter..!!',
+                'nama.required'         => 'Field nama tidak boleh kosong..!!',
+                'dusun.required'        => 'Field dusun tidak boleh kosong..!!',
+                'rw.required'           => 'Field rw tidak boleh kosong..!!',
+                'kelurahan.required'    => 'Field kelurahan tidak boleh kosong..!!',
+                'kecamatan.required'    => 'Field kecamatan tidak boleh kosong..!!',
+                'kota.required'         => 'Field kota tidak boleh kosong..!!',
+                'provinsi.required'     => 'Field provinsi tidak boleh kosong..!!',
+                'password.required'     => 'Field password tidak boleh kosong..!!',
+                'password.min'          => 'Password minimal 6 karakter..!!',
             ]
         );
 
 
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $username = Helper::UserNameGenerator(new Rt, 'username', 5, 'ADM');
+        $username = Helper::UserNameGenerator(new Rt, 'username', 5, 'DSN');
 
         Rt::create([
-            'username' => $username,
-            'nama' => strtoupper($validatedData['nama']),
-            'dusun' => $validatedData['dusun'],
-            'kelurahan' => strtoupper($validatedData['kelurahan']),
-            'kecamatan' => strtoupper($validatedData['kecamatan']),
-            'kota' => strtoupper($validatedData['kota']),
-            'provinsi' => strtoupper($validatedData['provinsi']),
+            'username'      => $username,
+            'nama'          => strtoupper($validatedData['nama']),
+            'dusun'         => $validatedData['dusun'],
+            'rw'            => $validatedData['rw'],
+            'kelurahan'     => strtoupper($validatedData['kelurahan']),
+            'kecamatan'     => strtoupper($validatedData['kecamatan']),
+            'kota'          => strtoupper($validatedData['kota']),
+            'provinsi'      => strtoupper($validatedData['provinsi']),
         ]);
 
         User::create([
-            'username' => $username,
-            'nama' => strtoupper($validatedData['nama']),
-            'password' => $validatedData['password'],
-            'level' => 2,
+            'username'  => $username,
+            'nama'      => strtoupper($validatedData['nama']),
+            'password'  => $validatedData['password'],
+            'level'     => 2,
         ]);
 
         return redirect('admin2/daftar-admin')->with('success', 'Berhasil menambahkan admin.');
@@ -242,20 +245,22 @@ class AdminRtController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'nama' => 'required',
-                'dusun' => 'required',
+                'nama'      => 'required',
+                'dusun'     => 'required',
+                'rw'        => 'required',
                 'kelurahan' => 'required',
                 'kecamatan' => 'required',
-                'kota' => 'required',
-                'provinsi' => 'required',
+                'kota'      => 'required',
+                'provinsi'  => 'required',
             ],
             [
-                'nama.required' => 'Field nama tidak boleh kosong..!!',
-                'dusun.required' => 'Field dusun tidak boleh kosong..!!',
-                'kelurahan.required' => 'Field kelurahan tidak boleh kosong..!!',
-                'kecamatan.required' => 'Field kecamatan tidak boleh kosong..!!',
-                'kota.required' => 'Field kota tidak boleh kosong..!!',
-                'provinsi.required' => 'Field provinsi tidak boleh kosong..!!',
+                'nama.required'         => 'Field nama tidak boleh kosong..!!',
+                'dusun.required'        => 'Field dusun tidak boleh kosong..!!',
+                'rw.required'           => 'Field dusun tidak boleh kosong..!!',
+                'kelurahan.required'    => 'Field kelurahan tidak boleh kosong..!!',
+                'kecamatan.required'    => 'Field kecamatan tidak boleh kosong..!!',
+                'kota.required'         => 'Field kota tidak boleh kosong..!!',
+                'provinsi.required'     => 'Field provinsi tidak boleh kosong..!!',
             ]
         );
 
@@ -266,17 +271,18 @@ class AdminRtController extends Controller
         }
 
         Rt::where('username', $username)->update([
-            'nama' => strtoupper($validatedData['nama']),
-            'dusun' => $validatedData['dusun'],
+            'nama'      => strtoupper($validatedData['nama']),
+            'dusun'     => $validatedData['dusun'],
+            'rw'        => $validatedData['rw'],
             'kelurahan' => strtoupper($validatedData['kelurahan']),
             'kecamatan' => strtoupper($validatedData['kecamatan']),
-            'kota' => strtoupper($validatedData['kota']),
-            'provinsi' => strtoupper($validatedData['provinsi']),
+            'kota'      => strtoupper($validatedData['kota']),
+            'provinsi'  => strtoupper($validatedData['provinsi']),
         ]);
 
         User::where('username', $username)->update([
-            'nama' => strtoupper($validatedData['nama']),
-            'password' => $pass
+            'nama'      => strtoupper($validatedData['nama']),
+            'password'  => $pass
         ]);
 
         return redirect('admin2/daftar-admin')->with('success', 'Berhasil mengedit admin.');

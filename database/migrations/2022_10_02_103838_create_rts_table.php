@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('nama');
             $table->string('dusun');
+            $table->string('rw');
             $table->string('kelurahan');
             $table->string('kota');
             $table->string('provinsi');
