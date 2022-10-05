@@ -41,13 +41,15 @@ class LayoutController extends Controller
         } else if ($user->level == 2) {
 
             $dusun = $adminRt->dusun;
+            $kel = $adminRt->kelurahan;
 
             return view('layout.home', [
-                'sesiUser' => $user,
+                'sesiUser'  => $user,
                 'rt'        => $adminRt,
-                'jmlAdmin' => DB::table('rts')->count(),
-                'jmlAdmin2' => DB::table('rts')->where('dusun', $dusun)->count(),
-                'jmlDasawisma' => DB::table('kaders')->count(),
+                'adminRt'   => $dusun,
+                'jmlAdmin'  => DB::table('rts')->count(),
+                'jmlAdmin2' => DB::table('rts')->where(['dusun' => $dusun, 'kelurahan' => $kel])->count(),
+                'jmlDasawisma' => DB::table('kaders')->where(['dusun' => $dusun, 'kelurahan' => $kel])->count(),
             ]);
 
             // admin dasawisma

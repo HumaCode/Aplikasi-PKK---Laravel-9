@@ -80,25 +80,18 @@ Edit Akun Dasawisma : <span class="text-danger">{{ $dasawisma->nama }}</span>
                         <div class="form-group">
                             <label for="kota">Kota</label>
                             <input type="text" class="form-control @error('kota') is-invalid @enderror" name="kota"
-                                id="kota" placeholder="Masukan Kota" value="{{ old('kota', $dasawisma->kota) }}">
-                            @error('kota')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                                id="kota" placeholder="Masukan Kota" value="{{ old('kota', $dasawisma->kota) }}"
+                                readonly>
+
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="provinsi">Provinsi</label>
-                            <input type="text" class="form-control @error('provinsi') is-invalid @enderror"
-                                name="provinsi" id="provinsi" placeholder="Masukan Provinsi"
-                                value="{{ old('provinsi', $dasawisma->provinsi) }}">
-                            @error('provinsi')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control" name="provinsi" id="provinsi"
+                                placeholder="Masukan Provinsi" value="{{ old('provinsi', $dasawisma->provinsi) }}"
+                                readonly>
+
                         </div>
                     </div>
                 </div>

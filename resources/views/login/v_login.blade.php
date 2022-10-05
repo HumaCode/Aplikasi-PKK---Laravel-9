@@ -19,12 +19,16 @@
     <link rel="stylesheet" href="{{ asset('/dist/css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-image: url({{ asset('/logo/background.webp') }})">
+
+
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>{{ config('app.name') }}</b></a>
+                <img src="{{ asset('logo/logo.png') }}" class="img-fluid mb-4" width="150" alt="">
+
+                <a href="#" class="h1"><b>{{ config('app.name') }}</b></a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Silahkan Login</p>

@@ -157,14 +157,18 @@ class AdminRtController extends Controller
     // untuk admin ke 2 AKun RT 
     public function dataByDukuh()
     {
-        $user = Auth::user();
-        $username = $user->username;
-        $userRt = $this->Rt->dataByUsername($username);
-        $dusun = $userRt->dusun;
+        $user       = Auth::user();
+        $username   = $user->username;
+        $userRt     = $this->Rt->dataByUsername($username);
+        $dusun      = $userRt->dusun;
+        $kel        = $userRt->kelurahan;
+
+        // return $dusun;
 
         return view('admin_rt.rt.data', [
-            'rt' => Rt::where('dusun', $dusun)->orderBy('id', 'desc')->get(),
-            'sesiUser' => $user,
+            'rt'        => Rt::where(['dusun' => $dusun, 'kelurahan' => $kel])->orderBy('id', 'desc')->get(),
+            'sesiUser'  => $user,
+            'adminRt'   => $dusun
         ]);
     }
 
@@ -173,11 +177,12 @@ class AdminRtController extends Controller
         $user = Auth::user();
         $username = $user->username;
         $userRt = $this->Rt->dataByUsername($username);
-
+        $dusun = $userRt->dusun;
 
         return view('admin_rt.rt.tambah', [
             'sesiUser' => Auth::user(),
             'dataRt'    => $userRt,
+            'adminRt'   => $dusun
         ]);
     }
 
@@ -234,10 +239,17 @@ class AdminRtController extends Controller
 
     public function editAdminRt($username)
     {
+        $user       = Auth::user();
+        $username2  = $user->username;
+        $userRt     = $this->Rt->dataByUsername($username2);
+        $dusun      = $userRt->dusun;
+
+
         return view('admin_rt.rt.edit', [
-            'adminRt' => $this->Rt->dataByUsername($username),
+            'userRt' => $this->Rt->dataByUsername($username),
             'user' => $this->User->dataByUsername($username),
-            'sesiUser' => Auth::user(),
+            'sesiUser' => $user,
+            'adminRt'   => $dusun
         ]);
     }
 
@@ -305,10 +317,12 @@ class AdminRtController extends Controller
         $username = $user->username;
         $userRt = $this->Rt->dataByUsername($username);
         $dusun = $userRt->dusun;
+        $kel = $userRt->kelurahan;
 
         return view('admin_rt.dasawisma.data', [
-            'dasawisma' => Kader::where('dusun', $dusun)->orderBy('id', 'desc')->get(),
+            'dasawisma' => Kader::where(['dusun' => $dusun, 'kelurahan' => $kel])->orderBy('id', 'desc')->get(),
             'sesiUser' => $user,
+            'adminRt'   => $dusun
         ]);
     }
 
@@ -318,10 +332,10 @@ class AdminRtController extends Controller
         $username = $user->username;
         $userRt = $this->Rt->dataByUsername($username);
 
-
         return view('admin_rt.dasawisma.tambah', [
             'sesiUser' => Auth::user(),
             'dataRt'    => $userRt,
+            'adminRt'   => $userRt->dusun
         ]);
     }
 
@@ -378,10 +392,17 @@ class AdminRtController extends Controller
 
     public function editAdminDasawisma($username)
     {
+
+        $user = Auth::user();
+        $username2 = $user->username;
+        $userRt = $this->Rt->dataByUsername($username2);
+
         return view('admin_rt.dasawisma.edit', [
             'dasawisma' => $this->Dasawisma->dataByUsername($username),
-            'user' => $this->User->dataByUsername($username),
-            'sesiUser' => Auth::user(),
+            'user'      => $this->User->dataByUsername($username),
+            'sesiUser'  => $user,
+            'adminRt'   => $userRt->dusun
+
         ]);
     }
 

@@ -30,7 +30,7 @@
                         @if ($sesiUser->level == 1)
                         SUPER ADMIN
                         @elseif($sesiUser->level == 2)
-                        ADMIN RT
+                        ADMIN RT {{ $adminRt }}
                         @elseif($sesiUser->level == 3)
                         ADMIN DASAWISMA
                         @elseif($sesiUser->level == 4)

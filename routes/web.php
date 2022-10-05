@@ -95,6 +95,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         // admin rt
         Route::get('admin-kelurahan/daftar-admin-rt', [AdminKelurahanController::class, 'index']);
+        Route::get('admin-kelurahan/tambah-admin-rt', [AdminKelurahanController::class, 'tambahAdminRt']);
+        Route::post('admin-kelurahan/proses-tambah-admin-rt', [AdminKelurahanController::class, 'prosesTambahAdminRt']);
+        Route::get('admin-kelurahan/edit-admin-rt/{username}', [AdminKelurahanController::class, 'editAdminRt']);
+        Route::put('admin-kelurahan/proses-edit-admin-rt/{username}', [AdminKelurahanController::class, 'prosesEditAdminRt']);
+        Route::delete('admin-kelurahan/hapus-admin-rt/{username}', [AdminKelurahanController::class, 'hapusAdminRt']);
     });
 
     // KECAMATAN
