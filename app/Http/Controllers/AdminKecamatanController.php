@@ -80,10 +80,10 @@ class AdminKecamatanController extends Controller
         ]);
 
         User::create([
-            'username' => $username,
-            'nama' => strtoupper($validatedData['nama']),
-            'password' => $validatedData['password'],
-            'level' => 5,
+            'username'  => $username,
+            'nama'      => strtoupper($validatedData['nama']),
+            'password'  => $validatedData['password'],
+            'level'     => 4,
         ]);
 
         return redirect('admin-kecamatan/daftar-admin-kelurahan')->with('success', 'Berhasil menambahkan admin kecamatan.');
@@ -91,9 +91,9 @@ class AdminKecamatanController extends Controller
 
     public function editAdminKelurahan($username)
     {
-        $user       = Auth::user();
-        $username2   = $user->username;
-        $kecamatan  = $this->Kecamatan->dataByUsername($username2);
+        $user           = Auth::user();
+        $username2      = $user->username;
+        $kecamatan      = $this->Kecamatan->dataByUsername($username2);
 
         return view('admin_kecamatan.kelurahan.edit', [
             'kelurahan' => $this->Kelurahan->dataByUsername($username),

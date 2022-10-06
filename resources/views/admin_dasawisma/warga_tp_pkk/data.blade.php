@@ -2,7 +2,7 @@
 
 
 @section('judul')
-Daftar Warga
+Daftar Warga TP PKK
 @endsection
 
 
@@ -11,7 +11,7 @@ Daftar Warga
 
     <div class="card card-cyan card-outline">
         <div class="card-header">
-            <a href="{{ url('dasawisma/tambah-dasawisma') }}" class="btn bg-cyan btn-sm"><i
+            <a href="{{ url('admin-dasawisma/tambah-warga') }}" class="btn bg-cyan btn-sm"><i
                     class="fas fa-plus"></i>&nbsp;
                 Tambah Data Kepala Rumah Tangga</a>
         </div>
@@ -42,7 +42,7 @@ Daftar Warga
                 </thead>
                 <tbody>
 
-                    @foreach ($kaders as $data)
+                    @foreach ($wargaKK as $data)
                     <tr class="text-center">
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $data->username }}</td>

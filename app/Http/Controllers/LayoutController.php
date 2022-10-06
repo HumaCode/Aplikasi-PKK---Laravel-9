@@ -20,9 +20,11 @@ class LayoutController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-        $username = $user->username;
-        $adminRt = $this->Rt->dataByUsername($username);
+        $user       = Auth::user();
+        $username   = $user->username;
+        $adminRt    = $this->Rt->dataByUsername($username);
+        $kecamatan  = $this->Kecamatan->dataByUsername($username);
+
 
         // super admin
         if ($user->level == 1) {
@@ -76,8 +78,8 @@ class LayoutController extends Controller
         //  akunkecamatan
         else if ($user->level == 5) {
 
-            $kecamatan  = $this->Kecamatan->dataByUsername($username);
-            // $kec        = $kecamatan->kecamatan;
+
+
 
             return view('layout.home', [
                 'sesiUser'      => $user,

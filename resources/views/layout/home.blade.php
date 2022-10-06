@@ -198,7 +198,7 @@ Menu Utama
                         <div class="icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <a href="admin/daftar-admin" class="small-box-footer">Lihat <i
+                        <a href="admin-dasawisma/daftar-warga-tp-pkk" class="small-box-footer">Lihat <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>

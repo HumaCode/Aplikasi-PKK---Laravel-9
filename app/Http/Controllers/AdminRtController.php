@@ -343,48 +343,50 @@ class AdminRtController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'nama' => 'required',
-                'dusun' => 'required',
+                'nama'      => 'required',
+                'dusun'     => 'required',
+                'rw'        => 'required',
                 'kelurahan' => 'required',
                 'kecamatan' => 'required',
-                'kota' => 'required',
-                'provinsi' => 'required',
+                'kota'      => 'required',
+                'provinsi'  => 'required',
                 'dasawisma' => 'required',
-                'password' => 'required|min:6'
+                'password'  => 'required|min:6'
             ],
             [
-                'nama.required' => 'Field nama tidak boleh kosong..!!',
-                'dusun.required' => 'Field dusun tidak boleh kosong..!!',
-                'kelurahan.required' => 'Field kelurahan tidak boleh kosong..!!',
-                'kecamatan.required' => 'Field kecamatan tidak boleh kosong..!!',
-                'kota.required' => 'Field kota tidak boleh kosong..!!',
-                'provinsi.required' => 'Field provinsi tidak boleh kosong..!!',
-                'dasawisma.required' => 'Field dasawisma tidak boleh kosong..!!',
-                'password.required' => 'Field password tidak boleh kosong..!!',
-                'password.min' => 'Password minimal 6 karakter..!!',
+                'nama.required'         => 'Field nama tidak boleh kosong..!!',
+                'dusun.required'        => 'Field dusun tidak boleh kosong..!!',
+                'kelurahan.required'    => 'Field kelurahan tidak boleh kosong..!!',
+                'kecamatan.required'    => 'Field kecamatan tidak boleh kosong..!!',
+                'kota.required'         => 'Field kota tidak boleh kosong..!!',
+                'provinsi.required'     => 'Field provinsi tidak boleh kosong..!!',
+                'dasawisma.required'    => 'Field dasawisma tidak boleh kosong..!!',
+                'password.required'     => 'Field password tidak boleh kosong..!!',
+                'password.min'          => 'Password minimal 6 karakter..!!',
             ]
         );
 
 
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $username = Helper::UserNameGenerator(new Rt, 'username', 5, 'DSA');
+        $username = Helper::UserNameGenerator(new Kader, 'username', 5, 'DSA');
 
         Kader::create([
-            'username' => $username,
-            'nama' => strtoupper($validatedData['nama']),
-            'dusun' => $validatedData['dusun'],
-            'kelurahan' => strtoupper($validatedData['kelurahan']),
-            'kecamatan' => strtoupper($validatedData['kecamatan']),
-            'kota' => strtoupper($validatedData['kota']),
-            'provinsi' => strtoupper($validatedData['provinsi']),
-            'dasawisma' => strtoupper($validatedData['dasawisma']),
+            'username'      => $username,
+            'nama'          => strtoupper($validatedData['nama']),
+            'dusun'         => $validatedData['dusun'],
+            'rw'            => $validatedData['rw'],
+            'kelurahan'     => strtoupper($validatedData['kelurahan']),
+            'kecamatan'     => strtoupper($validatedData['kecamatan']),
+            'kota'          => strtoupper($validatedData['kota']),
+            'provinsi'      => strtoupper($validatedData['provinsi']),
+            'dasawisma'     => strtoupper($validatedData['dasawisma']),
         ]);
 
         User::create([
-            'username' => $username,
-            'nama' => strtoupper($validatedData['nama']),
-            'password' => $validatedData['password'],
-            'level' => 3,
+            'username'      => $username,
+            'nama'          => strtoupper($validatedData['nama']),
+            'password'      => $validatedData['password'],
+            'level'         => 3,
         ]);
 
         return redirect('admin2/daftar-dasawisma')->with('success', 'Berhasil menambahkan akun dasawisma.');
@@ -410,12 +412,13 @@ class AdminRtController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'nama' => 'required',
-                'dusun' => 'required',
+                'nama'      => 'required',
+                'dusun'     => 'required',
+                'rw'        => 'required',
                 'kelurahan' => 'required',
                 'kecamatan' => 'required',
-                'kota' => 'required',
-                'provinsi' => 'required',
+                'kota'      => 'required',
+                'provinsi'  => 'required',
                 'dasawisma' => 'required',
             ],
             [
@@ -436,18 +439,19 @@ class AdminRtController extends Controller
         }
 
         Kader::where('username', $username)->update([
-            'nama' => strtoupper($validatedData['nama']),
-            'dusun' => $validatedData['dusun'],
+            'nama'      => strtoupper($validatedData['nama']),
+            'dusun'     => $validatedData['dusun'],
+            'rw'        => $validatedData['rw'],
             'kelurahan' => strtoupper($validatedData['kelurahan']),
             'kecamatan' => strtoupper($validatedData['kecamatan']),
-            'kota' => strtoupper($validatedData['kota']),
-            'provinsi' => strtoupper($validatedData['provinsi']),
+            'kota'      => strtoupper($validatedData['kota']),
+            'provinsi'  => strtoupper($validatedData['provinsi']),
             'dasawisma' => strtoupper($validatedData['dasawisma']),
         ]);
 
         User::where('username', $username)->update([
-            'nama' => strtoupper($validatedData['nama']),
-            'password' => $pass
+            'nama'      => strtoupper($validatedData['nama']),
+            'password'  => $pass
         ]);
 
         return redirect('admin2/daftar-dasawisma')->with('success', 'Berhasil mengedit akun dasawisma.');

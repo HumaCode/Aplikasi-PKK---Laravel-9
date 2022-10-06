@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminKecamatanController;
 use App\Http\Controllers\AdminKelurahanController;
 use App\Http\Controllers\AdminRtController;
+use App\Http\Controllers\DasawismaController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -87,7 +88,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('admin2/daftar-warga-tp-pkk', [AdminRtController::class, 'wargaTpPkk']);
     });
 
+    // admin dasawisma
     Route::group(['middleware' => ['cekUserLogin:3']], function () {
+
+        // warga tp pkk
+        Route::get('admin-dasawisma/daftar-warga-tp-pkk', [DasawismaController::class, 'index']);
+        Route::get('admin-dasawisma/tambah-warga', [DasawismaController::class, 'tambahWargaKK']);
     });
 
 

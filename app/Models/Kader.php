@@ -14,6 +14,7 @@ class Kader extends Model
         'username',
         'nama',
         'dusun',
+        'rw',
         'kelurahan',
         'kota',
         'provinsi',
