@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('kaders', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
+            $table->integer('id_dasawisma');
             $table->string('nama');
             $table->string('dusun');
             $table->string('rw');
             $table->string('kelurahan');
             $table->string('kota');
             $table->string('provinsi');
-            $table->string('dasawisma');
             $table->string('kecamatan');
             $table->timestamps();
         });

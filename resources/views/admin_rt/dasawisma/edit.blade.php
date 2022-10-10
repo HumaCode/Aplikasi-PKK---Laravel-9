@@ -114,9 +114,21 @@ Edit Akun Dasawisma : <span class="text-danger">{{ $dasawisma->nama }}</span>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="dasawisma">Dasawisma</label>
-                            <input type="text" class="form-control @error('dasawisma') is-invalid @enderror"
-                                name="dasawisma" id="dasawisma" placeholder="Masukan Dasawisma"
-                                value="{{ old('dasawisma', $dasawisma->dasawisma) }}">
+
+                            <select name="dasawisma" id="dasawisma"
+                                class="form-control @error('dasawisma') is-invalid @enderror" name="dasawisma">
+                                <option selected disabled>-- Pilih --</option>
+
+                                @foreach ($klmDasa as $item)
+                                @if ($item->id == $dasawisma->id_dasawisma)
+                                <option value="{{ $item->id }}" selected>{{ $item->dasawisma }}</option>
+                                @else
+                                <option value="{{ $item->id }}">{{ $item->dasawisma }}</option>
+                                @endif
+                                @endforeach
+                            </select>
+
+
                             @error('dasawisma')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>

@@ -315,29 +315,33 @@ class AdminRtController extends Controller
     // untuk admin ke 2 AKun dasawisma 
     public function dasawismaByDukuh()
     {
-        $user = Auth::user();
-        $username = $user->username;
-        $userRt = $this->Rt->dataByUsername($username);
-        $dusun = $userRt->dusun;
-        $kel = $userRt->kelurahan;
+        $user       = Auth::user();
+        $username   = $user->username;
+        $userRt     = $this->Rt->dataByUsername($username);
+        $dusun      = $userRt->dusun;
+        $kel        = $userRt->kelurahan;
 
         return view('admin_rt.dasawisma.data', [
-            'dasawisma' => Kader::where(['dusun' => $dusun, 'kelurahan' => $kel])->orderBy('id', 'desc')->get(),
-            'sesiUser' => $user,
+            'dasawisma' => $this->Dasawisma->getData($dusun, $kel),
+            'sesiUser'  => $user,
             'adminRt'   => $dusun
         ]);
     }
 
     public function tambahAdminDasawisma()
     {
-        $user = Auth::user();
-        $username = $user->username;
-        $userRt = $this->Rt->dataByUsername($username);
+        $user               = Auth::user();
+        $username           = $user->username;
+        $userRt             = $this->Rt->dataByUsername($username);
+        $rt                 = $userRt->dusun;
+        $rw                 = $userRt->rw;
+        $klmpDasawisma      = KlmpDasawisma::where(['rt' => $rt, 'rw' => $rw])->orderBy('id', 'desc')->get();
 
         return view('admin_rt.dasawisma.tambah', [
-            'sesiUser' => Auth::user(),
+            'sesiUser'  => $user,
             'dataRt'    => $userRt,
-            'adminRt'   => $userRt->dusun
+            'adminRt'   => $userRt->dusun,
+            'klmDasa'   => $klmpDasawisma
         ]);
     }
 
@@ -381,7 +385,7 @@ class AdminRtController extends Controller
             'kecamatan'     => strtoupper($validatedData['kecamatan']),
             'kota'          => strtoupper($validatedData['kota']),
             'provinsi'      => strtoupper($validatedData['provinsi']),
-            'dasawisma'     => strtoupper($validatedData['dasawisma']),
+            'id_dasawisma'     => $validatedData['dasawisma'],
         ]);
 
         User::create([
@@ -397,16 +401,20 @@ class AdminRtController extends Controller
     public function editAdminDasawisma($username)
     {
 
-        $user = Auth::user();
-        $username2 = $user->username;
-        $userRt = $this->Rt->dataByUsername($username2);
+        $user               = Auth::user();
+        $username2          = $user->username;
+        $userRt             = $this->Rt->dataByUsername($username2);
+        $rt                 = $userRt->dusun;
+        $rw                 = $userRt->rw;
+        $klmpDasawisma      = KlmpDasawisma::where(['rt' => $rt, 'rw' => $rw])->orderBy('id', 'desc')->get();
+
 
         return view('admin_rt.dasawisma.edit', [
             'dasawisma' => $this->Dasawisma->dataByUsername($username),
             'user'      => $this->User->dataByUsername($username),
             'sesiUser'  => $user,
-            'adminRt'   => $userRt->dusun
-
+            'adminRt'   => $userRt->dusun,
+            'klmDasa'   => $klmpDasawisma
         ]);
     }
 
@@ -441,14 +449,14 @@ class AdminRtController extends Controller
         }
 
         Kader::where('username', $username)->update([
-            'nama'      => strtoupper($validatedData['nama']),
-            'dusun'     => $validatedData['dusun'],
-            'rw'        => $validatedData['rw'],
-            'kelurahan' => strtoupper($validatedData['kelurahan']),
-            'kecamatan' => strtoupper($validatedData['kecamatan']),
-            'kota'      => strtoupper($validatedData['kota']),
-            'provinsi'  => strtoupper($validatedData['provinsi']),
-            'dasawisma' => strtoupper($validatedData['dasawisma']),
+            'nama'          => strtoupper($validatedData['nama']),
+            'dusun'         => $validatedData['dusun'],
+            'rw'            => $validatedData['rw'],
+            'kelurahan'     => strtoupper($validatedData['kelurahan']),
+            'kecamatan'     => strtoupper($validatedData['kecamatan']),
+            'kota'          => strtoupper($validatedData['kota']),
+            'provinsi'      => strtoupper($validatedData['provinsi']),
+            'id_dasawisma'  => $validatedData['dasawisma'],
         ]);
 
         User::where('username', $username)->update([

@@ -143,7 +143,7 @@ Menu Utama
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $jmlDasawisma }}</h3>
+                            <h3>{{ $jmlklmDasawisma }}</h3>
 
                             <p>Kelompok Dasawisma</p>
                         </div>

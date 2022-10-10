@@ -20,7 +20,7 @@ Edit Akun Dasawisma
                 <input type="hidden" name="passLama" value="{{ $user->password }}">
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
@@ -33,9 +33,9 @@ Edit Akun Dasawisma
                         </div>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label for="dusun">RT/Dusun</label>
+                            <label for="dusun">RT</label>
                             <input type="number" min="0" name="dusun"
                                 class="form-control @error('dusun') is-invalid @enderror" id="dusun"
                                 placeholder="Masukan Dusun" value="{{ old('dusun', $kader->dusun) }}">
@@ -46,7 +46,20 @@ Edit Akun Dasawisma
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="rw">RW</label>
+                            <input type="number" min="0" name="rw"
+                                class="form-control @error('rw') is-invalid @enderror" id="rw" placeholder="Masukan Rw"
+                                value="{{ old('rw', $kader->rw) }}">
+                            @error('rw')
+                            <div class="invalid-feedback">
+                                <div class="ml-1">{{ $message }}</div>
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="kelurahan">Kelurahan</label>
                             <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
@@ -80,7 +93,7 @@ Edit Akun Dasawisma
                         <div class="form-group">
                             <label for="kota">Kota</label>
                             <input type="text" class="form-control @error('kota') is-invalid @enderror" name="kota"
-                                id="kota" placeholder="Masukan Kota" value="{{ old('kota', $kader->kota) }}">
+                                id="kota" placeholder="Masukan Kota" value="{{ old('kota', $kader->kota) }}" readonly>
                             @error('kota')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>
@@ -93,7 +106,7 @@ Edit Akun Dasawisma
                             <label for="provinsi">Provinsi</label>
                             <input type="text" class="form-control @error('provinsi') is-invalid @enderror"
                                 name="provinsi" id="provinsi" placeholder="Masukan Provinsi"
-                                value="{{ old('provinsi', $kader->provinsi) }}">
+                                value="{{ old('provinsi', $kader->provinsi) }}" readonly>
                             @error('provinsi')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>
@@ -108,9 +121,27 @@ Edit Akun Dasawisma
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="dasawisma">Dasawisma</label>
-                            <input type="text" class="form-control @error('dasawisma') is-invalid @enderror"
-                                name="dasawisma" id="dasawisma" placeholder="Masukan Dasawisma"
-                                value="{{ old('dasawisma', $kader->dasawisma) }}">
+
+                            <select name="dasawisma" id="dasawisma"
+                                class="form-control @error('dasawisma') is-invalid @enderror" name="dasawisma">
+                                <option selected disabled>-- Pilih --</option>
+
+                                @foreach ($klmDasa as $item)
+                                @if ($item->id == $kader->id_dasawisma)
+                                <option value="{{ $item->id }}" selected>{{ $item->dasawisma }} | kel. {{
+                                    $item->kelurahan }} |
+                                    {{
+                                    $item->rt . '/' .
+                                    $item->rw}}</option>
+                                @else
+                                <option value="{{ $item->id }}">{{ $item->dasawisma }} | kel. {{ $item->kelurahan }} |
+                                    {{
+                                    $item->rt . '/' .
+                                    $item->rw}}</option>
+                                @endif
+                                @endforeach
+                            </select>
+
                             @error('dasawisma')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>

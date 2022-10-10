@@ -117,9 +117,14 @@ Tambah Akun Dasawisma RT : {{ $dataRt->dusun }}
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="dasawisma">Dasawisma</label>
-                            <input type="text" class="form-control @error('dasawisma') is-invalid @enderror"
-                                name="dasawisma" id="dasawisma" placeholder="Masukan Dasawisma"
-                                value="{{ old('dasawisma') }}">
+                            <select name="dasawisma" id="dasawisma"
+                                class="form-control @error('dasawisma') is-invalid @enderror" name="dasawisma">
+                                <option selected disabled>-- Pilih --</option>
+
+                                @foreach ($klmDasa as $item)
+                                <option value="{{ $item->id }}">{{ $item->dasawisma }}</option>
+                                @endforeach
+                            </select>
                             @error('dasawisma')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>

@@ -17,7 +17,7 @@ Tambah Akun Dasawisma
                 @csrf
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
@@ -30,20 +30,33 @@ Tambah Akun Dasawisma
                         </div>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label for="dusun">RT/Dusun</label>
-                            <input type="number" min="0" name="dusun"
-                                class="form-control @error('dusun') is-invalid @enderror" id="dusun"
-                                placeholder="Masukan Dusun" value="{{ old('dusun') }}">
-                            @error('dusun')
+                            <label for="rt">RT</label>
+                            <input type="number" min="0" name="rt"
+                                class="form-control @error('rt') is-invalid @enderror" id="rt" placeholder="Masukan Rt"
+                                value="{{ old('rt') }}">
+                            @error('rt')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>
                             </div>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="rw">RW</label>
+                            <input type="number" min="0" name="rw"
+                                class="form-control @error('rw') is-invalid @enderror" id="rw" placeholder="Masukan rw"
+                                value="{{ old('rw') }}">
+                            @error('rw')
+                            <div class="invalid-feedback">
+                                <div class="ml-1">{{ $message }}</div>
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="kelurahan">Kelurahan</label>
                             <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
@@ -76,26 +89,16 @@ Tambah Akun Dasawisma
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="kota">Kota</label>
-                            <input type="text" class="form-control @error('kota') is-invalid @enderror" name="kota"
-                                id="kota" placeholder="Masukan Kota" value="{{ old('kota') }}">
-                            @error('kota')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control" name="kota" id="kota" placeholder="Masukan Kota"
+                                value="PEKALONGAN" readonly>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="provinsi">Provinsi</label>
-                            <input type="text" class="form-control @error('provinsi') is-invalid @enderror"
-                                name="provinsi" id="provinsi" placeholder="Masukan Provinsi"
-                                value="{{ old('provinsi') }}">
-                            @error('provinsi')
-                            <div class="invalid-feedback">
-                                <div class="ml-1">{{ $message }}</div>
-                            </div>
-                            @enderror
+                            <input type="text" class="form-control" name="provinsi" id="provinsi"
+                                placeholder="Masukan Provinsi" value="JAWA TENGAH" readonly>
+
                         </div>
                     </div>
                 </div>
@@ -105,9 +108,17 @@ Tambah Akun Dasawisma
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="dasawisma">Dasawisma</label>
-                            <input type="text" class="form-control @error('dasawisma') is-invalid @enderror"
-                                name="dasawisma" id="dasawisma" placeholder="Masukan Dasawisma"
-                                value="{{ old('dasawisma') }}">
+                            <select name="dasawisma" id="dasawisma"
+                                class="form-control @error('dasawisma') is-invalid @enderror" name="dasawisma">
+                                <option selected disabled>-- Pilih --</option>
+
+                                @foreach ($klmDasa as $item)
+                                <option value="{{ $item->id }}">{{ $item->dasawisma }} | kel. {{ $item->kelurahan }} |
+                                    {{
+                                    $item->rt . '/' .
+                                    $item->rw}}</option>
+                                @endforeach
+                            </select>
                             @error('dasawisma')
                             <div class="invalid-feedback">
                                 <div class="ml-1">{{ $message }}</div>
