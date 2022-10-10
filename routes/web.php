@@ -84,6 +84,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('admin2/hapus-dasawisma/{username}', [AdminRtController::class, 'hapusAdminDasawisma']);
 
 
+        // kelompok dasawisma
+        Route::get('admin2/daftar-kelompok-dasawisma', [AdminRtController::class, 'kelompokDasawisma']);
+        Route::get('admin2/tambah-kelompok-dasawisma', [AdminRtController::class, 'tambahKelompokDasawisma']);
+        Route::post('admin2/proses-tambah-kelompok-dasawisma', [AdminRtController::class, 'prosesTambahKelompokDasawisma']);
+        Route::get('admin2/edit-kelompok-dasawisma/{id}', [AdminRtController::class, 'editKelompokDasawisma']);
+        Route::put('admin2/proses-edit-kelompok-dasawisma/{id}', [AdminRtController::class, 'prosesEditKelompokDasawisma']);
+        Route::delete('admin2/hapus-kelompok-dasawisma/{id}', [AdminRtController::class, 'hapusKelompokDasawisma']);
+
+
+
         // daftar warga tp pkk
         Route::get('admin2/daftar-warga-tp-pkk', [AdminRtController::class, 'wargaTpPkk']);
     });

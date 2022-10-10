@@ -78,9 +78,6 @@ class LayoutController extends Controller
         //  akunkecamatan
         else if ($user->level == 5) {
 
-
-
-
             return view('layout.home', [
                 'sesiUser'      => $user,
                 'kec'           => $kecamatan,

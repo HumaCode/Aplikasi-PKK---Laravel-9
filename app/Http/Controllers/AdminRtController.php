@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Kader;
+use App\Models\KlmpDasawisma;
 use App\Models\Rt;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,9 +15,10 @@ class AdminRtController extends Controller
 {
     public function __construct()
     {
-        $this->Rt = new Rt();
-        $this->User = new User();
-        $this->Dasawisma = new Kader();
+        $this->Rt               = new Rt();
+        $this->User             = new User();
+        $this->Dasawisma        = new Kader();
+        $this->KlmpDasawisma    = new KlmpDasawisma();
     }
 
     // akun rt
@@ -465,6 +467,133 @@ class AdminRtController extends Controller
         return redirect('admin2/daftar-dasawisma')->with('success', 'Berhasil dihapus.');
     }
 
+
+    // untuk admin ke 2 Kelompok dasawisma 
+    public function kelompokDasawisma()
+    {
+        $user       = Auth::user();
+        $username   = $user->username;
+        $userRt     = $this->Rt->dataByUsername($username);
+        $rt         = $userRt->dusun;
+        $kel        = $userRt->kelurahan;
+        $rw         = $userRt->rw;
+
+        return view('admin_rt.klmp_dasawisma.data', [
+            'klmp_dasawisma'    => KlmpDasawisma::where(['rt' => $rt, 'kelurahan' => $kel, 'rw' => $rw])->orderBy('id', 'desc')->get(),
+            'sesiUser'          => $user,
+            'adminRt'           => $rt
+        ]);
+    }
+
+    public function tambahKelompokDasawisma()
+    {
+        $user       = Auth::user();
+        $username   = $user->username;
+        $userRt     = $this->Rt->dataByUsername($username);
+
+        return view('admin_rt.klmp_dasawisma.tambah', [
+            'sesiUser'  => Auth::user(),
+            'dataRt'    => $userRt,
+            'adminRt'   => $userRt->dusun
+        ]);
+    }
+
+    public function prosesTambahKelompokDasawisma(Request $request)
+    {
+        $validatedData = $request->validate(
+            [
+                'dasawisma' => 'required',
+                'rt'        => 'required',
+                'rw'        => 'required',
+                'kelurahan' => 'required',
+                'kecamatan' => 'required',
+                'kota'      => 'required',
+                'provinsi'  => 'required',
+            ],
+            [
+                'rt.required'        => 'Field rt tidak boleh kosong..!!',
+                'kelurahan.required'    => 'Field kelurahan tidak boleh kosong..!!',
+                'kecamatan.required'    => 'Field kecamatan tidak boleh kosong..!!',
+                'kota.required'         => 'Field kota tidak boleh kosong..!!',
+                'provinsi.required'     => 'Field provinsi tidak boleh kosong..!!',
+                'dasawisma.required'    => 'Field dasawisma tidak boleh kosong..!!',
+            ]
+        );
+
+
+        KlmpDasawisma::create([
+            'dasawisma'     => strtoupper($validatedData['dasawisma']),
+            'rt'            => $validatedData['rt'],
+            'rw'            => $validatedData['rw'],
+            'kelurahan'     => strtoupper($validatedData['kelurahan']),
+            'kecamatan'     => strtoupper($validatedData['kecamatan']),
+            'kota'          => strtoupper($validatedData['kota']),
+            'provinsi'      => strtoupper($validatedData['provinsi']),
+        ]);
+
+        return redirect('admin2/daftar-kelompok-dasawisma')->with('success', 'Berhasil menambahkan data.');
+    }
+
+    public function editKelompokDasawisma($id)
+    {
+
+        $user       = Auth::user();
+        $username2  = $user->username;
+        $userRt     = $this->Rt->dataByUsername($username2);
+
+        return view('admin_rt.klmp_dasawisma.edit', [
+            'klmp_dasawisma'    => $this->KlmpDasawisma->dataById($id),
+            'sesiUser'          => $user,
+            'adminRt'           => $userRt->dusun,
+            'userRt'            => $userRt
+
+        ]);
+    }
+
+
+    public function prosesEditKelompokDasawisma(Request $request, $id)
+    {
+        $validatedData = $request->validate(
+            [
+                'dasawisma' => 'required',
+                'rt'        => 'required',
+                'rw'        => 'required',
+                'kelurahan' => 'required',
+                'kecamatan' => 'required',
+                'kota'      => 'required',
+                'provinsi'  => 'required',
+            ],
+            [
+                'rt.required'        => 'Field rt tidak boleh kosong..!!',
+                'kelurahan.required'    => 'Field kelurahan tidak boleh kosong..!!',
+                'kecamatan.required'    => 'Field kecamatan tidak boleh kosong..!!',
+                'kota.required'         => 'Field kota tidak boleh kosong..!!',
+                'provinsi.required'     => 'Field provinsi tidak boleh kosong..!!',
+                'dasawisma.required'    => 'Field dasawisma tidak boleh kosong..!!',
+            ]
+        );
+
+        KlmpDasawisma::where('id', $id)->update([
+            'dasawisma'     => strtoupper($validatedData['dasawisma']),
+            'rt'            => $validatedData['rt'],
+            'rw'            => $validatedData['rw'],
+            'kelurahan'     => strtoupper($validatedData['kelurahan']),
+            'kecamatan'     => strtoupper($validatedData['kecamatan']),
+            'kota'          => strtoupper($validatedData['kota']),
+            'provinsi'      => strtoupper($validatedData['provinsi']),
+        ]);
+
+
+        return redirect('admin2/daftar-kelompok-dasawisma')->with('success', 'Berhasil mengedit data.');
+    }
+
+
+    public function hapusKelompokDasawisma($id)
+    {
+        $this->KlmpDasawisma->DeleteData($id);
+
+        return redirect('admin2/daftar-kelompok-dasawisma')->with('success', 'Berhasil dihapus.');
+    }
 
     // untuk admin ke 2 Daftar Warga tp pkk 
     public function wargaTpPkk()

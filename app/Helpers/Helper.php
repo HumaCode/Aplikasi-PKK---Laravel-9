@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use DateTime;
+
 class Helper
 {
     public static function UserNameGenerator($model, $trow, $length = 5, $prefix)
@@ -24,5 +26,16 @@ class Helper
             $zeros .= 0;
         }
         return $prefix . '-' . $zeros . $last_number;
+    }
+
+
+    public static function HitungUmur($date)
+    {
+
+        $tanggal = new DateTime($date);
+        $today = new DateTime('today');
+        $tahun = $today->diff($tanggal)->y;
+
+        return $tahun;
     }
 }

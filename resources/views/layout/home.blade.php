@@ -101,13 +101,13 @@ Menu Utama
         <div class="card-body">
 
             <div class="row">
-                <div class="col-lg-6 col-6">
+                <div class="col-lg-4 col-6">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
                             @if ($sesiUser->level == 1)
                             <h3>{{ $jmlAdmin }}</h3>
-                            <p>Akun Admin per RT</p>
+                            <p>Akun Admin RT</p>
                             @elseif($sesiUser->level == 2)
                             <h3>{{ $jmlAdmin2 }}</h3>
                             <p>Akun Admin RT : {{ $rt->dusun }}</p>
@@ -123,7 +123,7 @@ Menu Utama
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-6">
+                <div class="col-lg-4 col-6">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
@@ -135,6 +135,22 @@ Menu Utama
                             <i class="fas fa-sitemap"></i>
                         </div>
                         <a href="{{ url('admin2/daftar-dasawisma') }}" class="small-box-footer">Lihat <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ $jmlDasawisma }}</h3>
+
+                            <p>Kelompok Dasawisma</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <a href="{{ url('admin2/daftar-kelompok-dasawisma') }}" class="small-box-footer">Lihat <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
